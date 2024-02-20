@@ -82,8 +82,8 @@ echo "==> Removing old directory..."
 rm -rf bin/"$PNAME"/*
 mkdir -p bin/"$PNAME"/
 
-XC_OS=$(go env GOOS)
-XC_ARCH=$(go env GOARCH)
+XC_OS=linux
+XC_ARCH=amd64
 
 # Build!
 echo "==> Building ${CTLNAME} using $(go version)... "
@@ -120,7 +120,7 @@ IFS=$OLDIFS
 mkdir -p "${MAIN_GOPATH}"/bin/
 
 # Copy our OS/Arch to the bin/ directory
-DEV_PLATFORM=./bin/"${PNAME}"/$(go env GOOS)_$(go env GOARCH)
+DEV_PLATFORM=./bin/"${PNAME}"/linux_amd64
 find "${DEV_PLATFORM}" -mindepth 1 -maxdepth 1 -type f -print0 | while IFS= read -r -d '' file
 do
     cp "$file" bin/"${PNAME}"/

@@ -83,7 +83,7 @@ ifeq (${XC_ARCH}, )
   XC_ARCH:=$(shell go env GOARCH)
 endif
 export XC_ARCH
-ARCH:=${XC_OS}_${XC_ARCH}
+ARCH:=linux/amd64
 export ARCH
 
 export DBUILD_ARGS=--build-arg DBUILD_DATE=${DBUILD_DATE} --build-arg DBUILD_REPO_URL=${DBUILD_REPO_URL} --build-arg DBUILD_SITE_URL=${DBUILD_SITE_URL} --build-arg BRANCH=${BRANCH} --build-arg RELEASE_TAG=${RELEASE_TAG}
@@ -230,7 +230,7 @@ zfs-driver-image: zfs-driver
 	@echo "+ Generating ${CSI_DRIVER} image"
 	@echo "--------------------------------"
 	@cp bin/${CSI_DRIVER}/${CSI_DRIVER} buildscripts/${CSI_DRIVER}/
-	cd buildscripts/${CSI_DRIVER} && sudo docker build -t ${IMAGE_ORG}/${CSI_DRIVER}:${IMAGE_TAG} ${DBUILD_ARGS} . && sudo docker tag ${IMAGE_ORG}/${CSI_DRIVER}:${IMAGE_TAG} quay.io/${IMAGE_ORG}/${CSI_DRIVER}:${IMAGE_TAG}
+	cd buildscripts/${CSI_DRIVER} && docker build -t gcr.io/mirrornode/zfs-driver:2.4.1-HEDERA --platform linux/amd64 ${DBUILD_ARGS} .
 	@rm buildscripts/${CSI_DRIVER}/${CSI_DRIVER}
 
 .PHONY: ci
