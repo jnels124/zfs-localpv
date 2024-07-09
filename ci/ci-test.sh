@@ -144,7 +144,9 @@ prepareCustomNodeIdEnv() {
   done
 }
 
+prepareCustomNodeIdEnv
 runTestSuite bdd_coverage_custom-node-id.txt
 
 # Perform
 echo "\n\n######### All test cases passed #########\n\n"
+exit 0
