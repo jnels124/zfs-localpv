@@ -17,6 +17,9 @@ limitations under the License.
 package tests
 
 import (
+	k8sapi "github.com/openebs/lib-csi/pkg/client/k8s"
+	"github.com/openebs/zfs-localpv/pkg/builder/nodebuilder"
+	"k8s.io/client-go/kubernetes"
 	"os"
 	"testing"
 
@@ -45,6 +48,8 @@ var (
 	ZFSClient      *volbuilder.Kubeclient
 	SCClient       *sc.Kubeclient
 	PVCClient      *pvc.Kubeclient
+	ZFSNodeClient  *nodebuilder.Kubeclient
+	NodeClient     *kubernetes.Clientset
 	DeployClient   *deploy.Kubeclient
 	PodClient      *pod.KubeClient
 	scName         = "zfspv-sc"
@@ -78,6 +83,15 @@ func init() {
 	DeployClient = deploy.NewKubeClient(deploy.WithKubeConfigPath(KubeConfigPath))
 	PodClient = pod.NewKubeClient(pod.WithKubeConfigPath(KubeConfigPath))
 	ZFSClient = volbuilder.NewKubeclient(volbuilder.WithKubeConfigPath(KubeConfigPath))
+	ZFSNodeClient = nodebuilder.NewKubeclient(nodebuilder.WithKubeConfigPath(KubeConfigPath))
+	cfg, err := k8sapi.Config().Get()
+	if err != nil {
+		klog.Fatalf("error building kubeconfig")
+	}
+	NodeClient, err = kubernetes.NewForConfig(cfg)
+	if err != nil {
+		klog.Fatalf("error building kube client")
+	}
 }
 
 func TestSource(t *testing.T) {

@@ -22,7 +22,8 @@ import (
 
 var _ = Describe("[zfspv] TEST VOLUME PROVISIONING", func() {
 	Context("App is deployed with zfs driver", func() {
-		It("Running zfs volume Creation Test", volumeCreationTest)
+		//It("Running zfs volume Creation Test", volumeCreationTest)
+		It("Running zfs volumn Creation Test with custom node id", volumeCreationTestWithCustomNodeID)
 	})
 })
 
@@ -74,4 +75,8 @@ func blockVolCreationTest() {
 func volumeCreationTest() {
 	By("Running volume creation test", fsVolCreationTest)
 	By("Running block volume creation test", blockVolCreationTest)
+}
+
+func volumeCreationTestWithCustomNodeID() {
+	By("Running the new te4st", prepareCustomNodeIdEnv)
 }

@@ -17,6 +17,8 @@ limitations under the License.
 package tests
 
 import (
+	"fmt"
+	"k8s.io/klog/v2"
 	"time"
 
 	"github.com/onsi/ginkgo"
@@ -584,4 +586,14 @@ func deletePVC(pvcname string) {
 	ginkgo.By("verifying deleted pvc")
 	status := IsPVCDeletedEventually(pvcname)
 	gomega.Expect(status).To(gomega.Equal(true), "while trying to get deleted pvc")
+}
+
+func prepareCustomNodeIdEnv() {
+	nodes, err := NodeClient.CoreV1().Nodes().List(metav1.ListOptions{})
+	if err != nil {
+		klog.Error("failed to list nodes %v", err)
+	}
+	for _, node := range nodes.Items {
+		fmt.Printf("The node name in prepare custom node id env is %s", node.Name)
+	}
 }

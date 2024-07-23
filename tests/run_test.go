@@ -104,6 +104,8 @@ func createClone(clonepvc, snapname, storageclass string) {
 
 	stdout, stderr, err := kubectlWithInput([]byte(yaml), "apply", "-n", OpenEBSNamespace, "-f", "-")
 	Expect(err).ShouldNot(HaveOccurred(), "stdout=%s, stderr=%s", stdout, stderr)
+
+	stdout, stderr, err = kubectl("get", "clonepvc", "-n", OpenEBSNamespace, "-f", "-")
 }
 
 func deleteSnapshot(pvcName, snapName string) {
