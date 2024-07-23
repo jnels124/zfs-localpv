@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/container-storage-interface/spec v1.8.0
 	github.com/kubernetes-csi/csi-lib-utils v0.9.0
-	github.com/onsi/ginkgo v1.16.5
+	github.com/onsi/ginkgo/v2 v2.19.0
 	github.com/onsi/gomega v1.33.1
 	github.com/openebs/google-analytics-4 v0.1.0
 	github.com/openebs/lib-csi v0.8.2
