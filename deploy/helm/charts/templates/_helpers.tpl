@@ -60,7 +60,7 @@ Define meta labels for openebs zfs-localpv components
 {{- define "zfslocalpv.common.metaLabels" -}}
 chart: {{ template "zfslocalpv.chart" . }}
 heritage: {{ .Release.Service }}
-openebs.io/version: {{ .Values.release.version | quote }}
+openebs.io/version: {{ .Chart.AppVersion | quote }}
 role: {{ .Values.role | quote }}
 {{- end -}}
 
@@ -146,4 +146,11 @@ Enable zfsController containers leader election if replicas > 1
 - "--leader-election"
 {{- end }}
 {{- end }}
+{{- end }}
+
+{{/*
+Ensure that the path to kubelet ends with a slash
+*/}}
+{{- define "zfslocalpv.zfsNode.kubeletDir" -}}
+{{- printf "%s/" (.Values.zfsNode.kubeletDir | trimSuffix "/") -}}
 {{- end }}
